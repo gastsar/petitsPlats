@@ -7,8 +7,8 @@ function displayRecipes(filteredRecipes) {
     recipesContainer.innerHTML = ''; // Efface le contenu actuel
 
     // Parcours de toutes les recettes et affichage de chaque carte
-    for (const recipe of filteredRecipes) {
-        displayRecipeCard(recipe);
+    for (let i = 0; i < filteredRecipes.length; i++) {
+        displayRecipeCard(filteredRecipes[i]);
     }
 
     // Mise à jour du compteur de recettes affichées
@@ -28,23 +28,24 @@ function filterRecipes(searchText) {
         const description = recipe.description.toLowerCase();
         
         // Vérification si le nom ou la description de la recette contient le terme de recherche
-        if (name.includes(searchTerm) || description.includes(searchTerm)) {
-            filtered.push(recipe);
+        if (name.indexOf(searchTerm) !== -1 || description.indexOf(searchTerm) !== -1) {
+            filtered[filtered.length] = recipe;
         } else {
             let ingredientMatch = false;
             let j = 0;
             const ingredients = recipe.ingredients;
             while (j < ingredients.length) {
                 const ingredient = ingredients[j].ingredient.toLowerCase();
-                // Vérification si un ingrédient contient le terme de recherche
-                if (ingredient.includes(searchTerm)) {
+                // Vérification si un ingrédient contient le terme de recherche (sans utiliser includes)
+                if (ingredient.indexOf(searchTerm) !== -1) {
                     ingredientMatch = true;
                     break;
                 }
                 j++;
             }
             if (ingredientMatch) {
-                filtered.push(recipe);
+                // Ajout manuel de la recette au tableau filtré
+                filtered[filtered.length] = recipe;
             }
         }
         i++;
@@ -70,17 +71,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Gestion des événements des boutons de menu déroulant
     const dropdownBtns = document.querySelectorAll(".dropdown-btn");
-    for (const btn of dropdownBtns) {
+    for (let i = 0; i < dropdownBtns.length; i++) {
+        const btn = dropdownBtns[i];
         btn.addEventListener("click", function () {
             const parentContainer = this.closest(".menu-container");
             
-            switch (parentContainer.classList.contains("open")) {
-                case true:
-                    parentContainer.classList.remove("open");
-                    break;
-                case false:
-                    parentContainer.classList.add("open");
-                    break;
+            // Gestion de l'état ouvert/fermé du menu déroulant (sans utiliser classList)
+            if (parentContainer.className.indexOf("open") !== -1) {
+                parentContainer.className = parentContainer.className.replace(" open", "");
+            } else {
+                parentContainer.className += " open";
             }
         });
     }
