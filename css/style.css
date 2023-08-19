@@ -1,0 +1,281 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+:root {
+  --colorBlack--: #000;
+  --colorWhite--: #fff;
+  --colorPrimary--: #ffd15b;
+  --colorGrey--: #7a7a7a;
+}
+
+body {
+ background-color: #EDEDED;
+  font-family:Manrope, Anton;
+  margin: 0;
+  
+}
+
+#header {
+  width: auto;
+  height: 30em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+  color: white;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(../assets/header_image.jpeg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.header_image img {
+  width: 100%;
+  height: 25em;
+  object-fit: cover;
+}
+
+.header_title {
+  position: absolute;
+  left: 30px;
+  top: 20px;
+  text-transform: uppercase;
+}
+.header_search {
+  width: 80%;
+}
+
+.form_search,.form_filtre {
+  display: flex;
+  height: 40px;
+  position: relative;
+  align-items: center;
+  margin-top: 20px;
+}
+.form_filtre{
+  border: 1px solid  #7a7a7a;;
+  border-radius: 10px;
+}
+.searchTerm {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  border-radius: 10px;
+ 
+}
+form label {
+  text-transform: uppercase;
+  color: var(--colorPrimary--);
+  text-align: center;
+  font-family: Anton;
+  font-size: 44px;
+  font-weight: 400;
+}
+
+.searchButton {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 3px;
+  color: #fff;
+  cursor: pointer;
+
+}
+.form_search .searchButton{
+  font-size: 20px;
+}
+.form_search .searchButton:hover{
+  background-color: var(--colorPrimary--) !important;
+}
+.form_search .searchButton:hover .icone_one{
+color: var(--colorBlack--);
+}
+.btnFiltre{
+background-color: transparent;
+color: #7a7a7a;
+font-size: 14px;
+}
+
+#main{
+background-color: #EDEDED;
+}
+#main h1{
+  font-size: 18px;
+}
+
+.dropdown-content ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-content input{
+  width: 100%;
+  
+}
+
+.menu-container {
+  display: inline-block;
+  position: relative;
+  width: 10em;
+}
+
+.dropdown-btn {
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  background-color: #ffffff;
+  z-index: 1;
+  left: 0;
+  top: 36px;
+  text-align: left;
+  border-radius: 0 0 5px 5px;
+}
+
+.menu-container.open .dropdown-content {
+  display: block;
+  position: absolute;
+}
+
+.list ul{
+  max-height: 16em;
+  overflow: scroll;
+
+
+}
+
+.list li{
+padding: 8px 0;
+cursor: pointer;
+padding:5px 10px;
+display: flex;
+  justify-content: space-between;
+}
+.list li:hover{
+
+  background-color: #FFD15B;
+}
+/* Ajoutez les styles d'animation */
+@keyframes rotateChevronDown {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotateChevronUp {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+/* Appliquez le style d'animation aux icônes */
+.bi-chevron-down,
+.bi-chevron-up {
+  transition: transform 0.3s ease-in-out;
+}
+.bi-chevron-up {
+  display: none;
+
+}
+.open .bi-chevron-down {
+  display: none;
+  animation: rotateChevronDown 0.3s forwards;
+}
+
+.open .bi-chevron-up {
+  display: block;
+  animation: rotateChevronUp 0.3s forwards;
+}
+
+.card img{
+  height: 10em;
+  object-fit: cover;
+
+}
+.time{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: #ffd15b;
+  padding:5px 10px;
+  border-radius: 25px;
+}
+.recetteTitre{
+  text-transform: uppercase;
+}
+.tag-list {
+  list-style: none;
+  display: flex;
+padding: 10px;
+border-radius: 10px;
+}
+.tag-list i{
+  margin-left: 5px;
+}
+.description{
+  height: 7.5em;
+  overflow: hidden;
+}
+.card strong {
+  font-weight: bold;
+}
+
+#totalRecipeCount{
+  float: right;
+  margin-right: 3rem;
+  font-weight: bolder;
+}
+.no-recipes-message {
+  text-align: center;
+  font-size: 18px;
+  color: gray;
+  margin-top: 20px;
+  display: none;
+  animation: fadeIn 1s ease-in-out forwards; /* Appliquer l'animation de fondu */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.checked{
+    background-color: #ffd15b;
+ 
+
+}
+.tag-list{
+  margin: 0 15px;
+}
+#selectedItemsList{
+  display: flex;
+}
+#selectedItemsList .tag{
+  margin: 0 5px;
+  padding: 10px;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-between;
+}
+.tag i{
+  margin-left: 10px;
+}
+input[type="checkbox"] {
+  display: none;
+}
