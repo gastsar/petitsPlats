@@ -74,4 +74,51 @@ ingrediensTitre.setAttribute('aria-level', '3');
   
     document.querySelector('.recipe-cards').appendChild(article);
 
-  }
+  };
+  // Affiche un message d'erreur et des suggestions
+export function displayErrorAndSuggest(searchTerm) {
+  const suggestionContainer = document.createElement("div");
+  suggestionContainer.classList.add(
+    "p-2",
+    "rounded",
+    "d-flex",
+    "position-absolute",
+    "bottom-50",
+    "end-50",
+    "flex-column",
+    "justify-content-center",
+    "bg-info",
+    "align-items-center"
+  );
+
+  const suggestionsParagraph = document.createElement("p");
+  suggestionsParagraph.innerHTML = `Aucune recette ne contient <span class="fw-bolder">${searchTerm}</span>. Vous pouvez chercher les suggestions ou décocher le tag :`;
+
+  const suggestionsButtonContainer = document.createElement("div");
+
+  const suggestionButtonNames = ["Pizza", "Limonade", "Tarte au thon"];
+  suggestionButtonNames.forEach((suggestionName) => {
+    const suggestionButton = document.createElement("button");
+    suggestionButton.classList.add(
+      "suggestion",
+      "border-0",
+      "rounded",
+      "bg-warning"
+    );
+    suggestionButton.textContent = suggestionName;
+    suggestionsButtonContainer.appendChild(suggestionButton);
+  });
+
+  suggestionContainer.appendChild(suggestionsParagraph);
+  suggestionContainer.appendChild(suggestionsButtonContainer);
+
+  elements.errorElement.innerHTML = "";
+  elements.errorElement.appendChild(suggestionContainer);
+
+  const suggestionButtons = elements.errorElement.querySelectorAll(".suggestion");
+  suggestionButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      elements.searchInput.value = button.textContent;
+    });
+  });
+}

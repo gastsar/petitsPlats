@@ -1,6 +1,6 @@
 import { recipes } from "../../data/recipes.js";
 import { displayRecipeCard } from "../templates/cards.js";
-
+import { createDeleteIconOne,createDeleteIconTwo,createListItem, capitalizeFirstLetter} from "../utils/composant.js";
 // Éléments du DOM
 const elements = {
   searchInput: document.getElementById("searchInput"),
@@ -75,8 +75,8 @@ function displayUniqueList(containerId, items) {
     if (selectedItems.ingredients.includes(item) ||
         selectedItems.ustensils.includes(item) ||
         selectedItems.appliances.includes(item)) {
-      const deleteIcon = createDeleteIcon();
-      listItem.classList.add('selected');
+      const deleteIcon = createDeleteIconOne();
+      listItem.classList.add('selected','d-flex');
       listItem.appendChild(deleteIcon);
  
     }
@@ -84,30 +84,6 @@ function displayUniqueList(containerId, items) {
 
     listItem.addEventListener('click', toggleSelectedItem);
   });
-}
-
-// Met en majuscule la première lettre d'une chaîne
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// Crée un élément de liste avec le texte spécifié
-function createListItem(item) {
-  const listItem = document.createElement('li');
-  listItem.textContent = item;
-  listItem.classList.add('list-item', 'mb-1');
-  listItem.setAttribute('data-item', item);
-  listItem.setAttribute('role',"listitem");
-  return listItem;
-}
-
-// Crée une icône de suppression
-function createDeleteIcon() {
-  const deleteIcon = document.createElement('span');
-  deleteIcon.style.pointerEvents = "none";
-  deleteIcon.className = 'delete-icon';
-  deleteIcon.innerHTML = `<i class="bi bi-x-circle-fill"></i>`;
-  return deleteIcon;
 }
 
 // Supprime un élément sélectionné
@@ -129,7 +105,31 @@ function removeSelectedItem(item) {
     }
   }
 }
+function addSelectedTag(item) {
+  const selectedItemsList = document.getElementById("selected-items-list");
+  const listItem = document.createElement("li");
+  listItem.textContent = item;
+  listItem.className = "tag-list";
+  const deleteIcon = createDeleteIconTwo();
+  listItem.appendChild(deleteIcon);
+  selectedItemsList.appendChild(listItem);
 
+  deleteIcon.addEventListener("click", function () {
+    selectedItemsList.removeChild(listItem);
+    removeSelectedItem(item);
+    searchRecipes(); // Appel de la fonction de recherche pour mettre à jour les recettes filtrées
+  });
+}
+
+function removeSelectedTag(item) {
+  const selectedItemsList = document.getElementById("selected-items-list");
+  const tags = selectedItemsList.querySelectorAll("li");
+  tags.forEach((tag) => {
+    if (tag.textContent === item) {
+      selectedItemsList.removeChild(tag);
+    }
+  });
+}
 // Gère le clic sur le bouton de recherche pour les ingrédients, ustensiles et appareils
 function handleSearchButtonClick(searchType) {
   return function () {
@@ -143,9 +143,8 @@ function handleSearchButtonClick(searchType) {
       const listItem = document.createElement("li");
       listItem.textContent = `${searchValue}`;
       listItem.className = "tag-list";
-      const deleteIcon = document.createElement('span');
-      deleteIcon.className = 'delete-icon';
-      deleteIcon.innerHTML = `<i class="bi bi-x-lg"></i>`;
+      const deleteIcon = createDeleteIconTwo();
+  listItem.appendChild(deleteIcon);
       listItem.appendChild(deleteIcon);
       selectedItemsList.appendChild(listItem);
 
@@ -175,8 +174,12 @@ function toggleSelectedItem(event) {
     } else if (listItem.parentElement.id === 'appliances-list') {
       selectedItems.appliances.push(selectedItem);
     }
+    // Ajoute le tag dans le conteneur
+    addSelectedTag(selectedItem);
   } else {
     removeSelectedItem(selectedItem);
+    // Supprime le tag correspondant du conteneur
+    removeSelectedTag(selectedItem);
   }
 
   displayUniqueList('ingredients-list', selectedItems.ingredients);
@@ -342,17 +345,7 @@ function clearError() {
 // Affiche un message d'erreur et des suggestions
 function displayErrorAndSuggest(searchTerm) {
   const suggestionContainer = document.createElement("div");
-  suggestionContainer.classList.add(
-    "p-2",
-    "rounded",
-    "d-flex",
-    "position-absolute",
-    "bottom-50",
-    "end-50",
-    "flex-column",
-    "justify-content-center",
-    "bg-info",
-    "align-items-center"
+  suggestionContainer.className= ("p-2 rounded d-flex position-absolute bottom-50 end-50 flex-column justify-content-center bg-info align-items-center"
   );
 
   const suggestionsParagraph = document.createElement("p");
