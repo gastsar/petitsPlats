@@ -14,95 +14,28 @@ body {
 }
 
 #header {
-  width: auto;
-  height: 30em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  text-align: center;
-  color: white;
+  height: 25em;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url(../assets/header_image.jpeg);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
-.header_image img {
-  width: 100%;
-  height: 25em;
-  object-fit: cover;
-}
-
-.header_title {
-  position: absolute;
-  left: 30px;
-  top: 20px;
-  text-transform: uppercase;
-}
-.header_search {
-  width: 80%;
-}
-
-.form_search,.form_filtre {
-  display: flex;
-  height: 40px;
-  position: relative;
-  align-items: center;
-  margin-top: 20px;
-}
-.form_filtre{
-  border: 1px solid  #7a7a7a;;
-  border-radius: 10px;
-}
-.searchTerm {
-  width: 100%;
-  border: none;
-  padding: 5px;
-  height: 100%;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  border-radius: 10px;
- 
-}
-form label {
-  text-transform: uppercase;
+.header_search p{
   color: var(--colorPrimary--);
-  text-align: center;
-  font-family: Anton;
-  font-size: 44px;
-  font-weight: 400;
 }
-
-.searchButton {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 3px;
-  color: #fff;
-  cursor: pointer;
-
-}
-.form_search .searchButton{
-  font-size: 20px;
-}
-.form_search .searchButton:hover{
+.searchButton:hover{
   background-color: var(--colorPrimary--) !important;
 }
-.form_search .searchButton:hover .icone_one{
-color: var(--colorBlack--);
+.searchButton:hover .icone_one{
+color: var(--colorBlack--) !important;
 }
-.btnFiltre{
-background-color: transparent;
-color: #7a7a7a;
-font-size: 14px;
+.btnFiltre:hover {
+  color: var(--colorBlack--) !important;
 }
 
 #main{
-background-color: #EDEDED;
-}
-#main h1{
-  font-size: 18px;
+  min-height: 58vh;
 }
 
 .dropdown-content ul{
@@ -142,78 +75,55 @@ background-color: #EDEDED;
   position: absolute;
 }
 
-.list ul{
+.liste-element ul{
   max-height: 16em;
   overflow: scroll;
 
 
 }
 
-.list li{
+.liste-element li{
 padding: 8px 0;
 cursor: pointer;
 padding:5px 10px;
 display: flex;
   justify-content: space-between;
 }
-.list li:hover{
+.liste-element li:hover{
 
   background-color: #FFD15B;
 }
+
 /* Ajoutez les styles d'animation */
 @keyframes rotateChevronDown {
   0% {
-    transform: rotate(0);
+    transform: rotateX(0);
   }
   100% {
-    transform: rotate(180deg);
-  }
-}
-
-@keyframes rotateChevronUp {
-  0% {
-    transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(0);
+    transform: rotateX(180deg);
   }
 }
 
 /* Appliquez le style d'animation aux icônes */
-.bi-chevron-down,
-.bi-chevron-up {
+.bi-chevron-down {
   transition: transform 0.3s ease-in-out;
 }
-.bi-chevron-up {
-  display: none;
 
-}
 .open .bi-chevron-down {
-  display: none;
-  animation: rotateChevronDown 0.3s forwards;
+  animation: rotateChevronDown 1s forwards; /* Durée de l'animation augmentée à 1 seconde */
 }
 
-.open .bi-chevron-up {
-  display: block;
-  animation: rotateChevronUp 0.3s forwards;
-}
+
 
 .card img{
   height: 10em;
   object-fit: cover;
 
 }
-.time{
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  background-color: #ffd15b;
-  padding:5px 10px;
-  border-radius: 25px;
+#selected-items{
+  display: flex;
 }
-.recetteTitre{
-  text-transform: uppercase;
-}
+
 .tag-list {
   list-style: none;
   display: flex;
@@ -227,34 +137,22 @@ border-radius: 10px;
   height: 7.5em;
   overflow: hidden;
 }
-.card strong {
-  font-weight: bold;
-}
+
 
 #totalRecipeCount{
   float: right;
   margin-right: 3rem;
   font-weight: bolder;
 }
-.no-recipes-message {
-  text-align: center;
-  font-size: 18px;
-  color: gray;
-  margin-top: 20px;
-  display: none;
-  animation: fadeIn 1s ease-in-out forwards; /* Appliquer l'animation de fondu */
-}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+.selected{
+  font-weight: 600;
 
-.checked{
+}
+.selected i{
+  color: #000;
+}
+.selected, .tag-list{
     background-color: #ffd15b;
  
 
@@ -262,20 +160,41 @@ border-radius: 10px;
 .tag-list{
   margin: 0 15px;
 }
-#selectedItemsList{
+.delete-icon{
+  cursor: pointer;
+}
+.btn-delete{
+  display: none;
+}
+#selected-items-list{
   display: flex;
 }
-#selectedItemsList .tag{
+#selectedItemsList .tag-list{
   margin: 0 5px;
   padding: 10px;
   border-radius: 10px;
-
   display: flex;
   justify-content: space-between;
 }
 .tag i{
   margin-left: 10px;
 }
-input[type="checkbox"] {
-  display: none;
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 4px solid rgba(0, 0, 0, 0.3);
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: loading 1s linear infinite;
 }
