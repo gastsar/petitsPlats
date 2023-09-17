@@ -248,6 +248,7 @@ function searchRecipes() {
 	// Récupère le terme de recherche saisi par l'utilisateur et le convertit en minuscules
 	const searchTerm = elements.searchInput.value.toLowerCase();
 
+<<<<<<< HEAD
 	// Vérifie si la longueur du terme de recherche est supérieure ou égale à 3 caractères
 	if (searchTerm.length >= 3) {
 		// Tableau pour stocker les recettes filtrées par la recherche
@@ -279,6 +280,19 @@ function searchRecipes() {
 				filteredBySearchRecipes[filteredBySearchRecipes.length] = recipe; 
 			}
 		}
+=======
+  if (searchTerm.length >= 3) {
+    const filteredBySearchRecipes = recipes.filter((recipe) => {
+      const nameMatch = recipe.name.toLowerCase().includes(searchTerm);
+      const descriptionMatch = recipe.description.toLowerCase().includes(searchTerm);
+      const ingredientMatch = recipe.ingredients.some(
+        (ingredient) =>
+          ingredient.ingredient.toLowerCase().includes(searchTerm)
+      );
+
+      return nameMatch || descriptionMatch || ingredientMatch;
+    });
+>>>>>>> main
 
 		// Filtrer davantage les recettes en fonction des éléments sélectionnés 
 		const filteredRecipes = filterRecipesBySelectedItems(filteredBySearchRecipes);
@@ -286,6 +300,7 @@ function searchRecipes() {
 		// Affiche les recettes filtrées
 		displayRecipes(filteredRecipes);
 
+<<<<<<< HEAD
 		// Met à jour le nombre total de recettes affichées
 		updateTotalRecipesCount(filteredRecipes.length);
 
@@ -306,6 +321,19 @@ function searchRecipes() {
 		// Efface tout message d'erreur précédent
 		clearError();
 	}
+=======
+    if (filteredRecipes.length === 0) {
+      displayErrorAndSuggest(searchTerm);
+    } else {
+      clearError();
+    }
+  } else {
+    const filteredRecipes = filterRecipesBySelectedItems();
+    displayRecipes(filteredRecipes);
+    updateTotalRecipesCount(filteredRecipes.length);
+    clearError();
+  }
+>>>>>>> main
 }
 
 
