@@ -21,6 +21,10 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
 }
+.header_title img{
+ width:150px ;
+ 
+}
 .header_search p{
   color: var(--colorPrimary--);
 }
