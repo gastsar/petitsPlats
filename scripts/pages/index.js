@@ -218,9 +218,7 @@ function handleSearchButtonClick(searchType) {
 			handleDeleteSelectedItem(searchValue)();
 
 			searchRecipes(); // Appel de la fonction de recherche pour mettre à jour les recettes filtrées
-		} else {
-			alert("Veuillez entrer uniquement des caractères alphanumériques.");
-		}
+		} 
 	};
 }
 
