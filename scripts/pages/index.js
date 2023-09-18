@@ -284,6 +284,7 @@ function searchRecipes() {
 		clearError();
 	}
 } 
+
 // Filtrer les recettes en fonction des éléments sélectionnés
 function filterRecipesBySelectedItems(searchFilteredRecipes) {
 	// Vérifie si la liste de recettes filtrées est fournie, sinon utilise la liste de recettes complète.
