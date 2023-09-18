@@ -254,7 +254,7 @@ function searchRecipes() {
 	const searchTerm = elements.searchInput.value.toLowerCase();
 
 	if (searchTerm.length >= 3) {
- 
+		console.time("Filtrage des recettes");
 		const filteredBySearchRecipes = recipes.filter((recipe) => {
 			const nameMatch = recipe.name.toLowerCase().includes(searchTerm);
 			const descriptionMatch = recipe.description.toLowerCase().includes(searchTerm);
@@ -271,7 +271,7 @@ function searchRecipes() {
 
 		// Affiche les recettes filtrées
 		displayRecipes(filteredRecipes);
-
+		console.timeEnd("Filtrage des recettes");
 		if (filteredRecipes.length === 0) {
 			displayErrorAndSuggest(searchTerm);
 		} else {
