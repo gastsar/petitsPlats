@@ -1,6 +1,6 @@
 // Fonction pour créer un élément de menu
 function createMenuContainer(title, idPrefix) {
-	const container = document.createElement("div");
+	const container = document.createElement("form");
 	container.classList.add("menu-container", "rounded", "bg-white", "m-2");
   
 	const dropdownBtn = document.createElement("div");
@@ -31,8 +31,9 @@ function createMenuContainer(title, idPrefix) {
 	input.id = `${idPrefix}-search`;
 	input.placeholder = title.toLowerCase();
 	input.setAttribute("aria-label", `Rechercher un ${idPrefix}`);
-	input.setAttribute("pattern", "[a-zA-Z\s]+");
-  
+	input.setAttribute("pattern", "[a-zA-Z0-9\\s]+");
+	input.setAttribute("required", true);
+
 	const contentButton= document.createElement("div");
 	contentButton.className =" d-flex position-absolute";
 	const buttonDelete = document.createElement("button");

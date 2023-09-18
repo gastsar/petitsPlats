@@ -6,6 +6,13 @@ export function createListItem(item) {
 	listItem.setAttribute("role", "listitem");
 	return listItem;
 }
+export function createListTag(item) {
+	const listTag = document.createElement("li");
+	listTag.textContent = item;
+	listTag.classList.add("tag-list", "mb-1");
+	listTag.setAttribute("role", "listtag");
+	return listTag;
+}
 
 
 export function createDeleteIconOne() {
