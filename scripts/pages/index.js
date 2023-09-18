@@ -246,6 +246,8 @@ function searchRecipes() {
 	const searchTerm = elements.searchInput.value.toLowerCase();
 
 	if (searchTerm.length >= 3) {
+    console.time('Filtrage des recettes');
+
 		const filteredBySearchRecipes = recipes.filter((recipe) => {
 			const nameMatch = recipe.name.toLowerCase().includes(searchTerm);
 			const descriptionMatch = recipe.description.toLowerCase().includes(searchTerm);
@@ -256,7 +258,7 @@ function searchRecipes() {
 
 			return nameMatch || descriptionMatch || ingredientMatch;
 		});
-
+    console.timeEnd('Filtrage des recettes');
 		// Filtrer davantage les recettes en fonction des éléments sélectionnés 
 		const filteredRecipes = filterRecipesBySelectedItems(filteredBySearchRecipes);
 
@@ -274,9 +276,78 @@ function searchRecipes() {
 		updateTotalRecipesCount(filteredRecipes.length);
 		clearError();
 	}
-}
+} 
 
+/* function searchRecipes() {
+	// Récupère le terme de recherche saisi par l'utilisateur et le convertit en minuscules
+	const searchTerm = elements.searchInput.value.toLowerCase();
 
+	// Vérifie si la longueur du terme de recherche est supérieure ou égale à 3 caractères
+	if (searchTerm.length >= 3) {
+		console.time("Filtrage des recettes");
+
+		// Tableau pour stocker les recettes filtrées par la recherche
+		const filteredBySearchRecipes = [];
+
+		// Parcourt toutes les recettes
+		for (let i = 0; i < recipes.length; i++) {
+			const recipe = recipes[i];
+			let isMatch = false;
+			let j = 0;
+
+			// Parcourt les ingrédients de la recette actuelle
+			while (!isMatch && j < recipe.ingredients.length) {
+				const ingredient = recipe.ingredients[j].ingredient.toLowerCase();
+
+				// Vérifie si le terme de recherche se trouve dans le nom de la recette,
+				// la description de la recette ou l'ingrédient actuel
+				if (
+					recipe.name.toLowerCase().indexOf(searchTerm) !== -1 ||
+          recipe.description.toLowerCase().indexOf(searchTerm) !== -1 ||
+          ingredient.indexOf(searchTerm) !== -1
+				) {
+					isMatch = true; // Indique qu'il y a une correspondance
+				} else {
+					j++; // Passe à l'ingrédient suivant
+				}
+			}
+
+			// Si une correspondance est trouvée, ajoute la recette au tableau filtré
+			if (isMatch) {
+				filteredBySearchRecipes[filteredBySearchRecipes.length] = recipe;
+			}
+		}
+		console.timeEnd("Filtrage des recettes");
+		// Filtrer davantage les recettes en fonction des éléments sélectionnés
+		const filteredRecipes = filterRecipesBySelectedItems(
+			filteredBySearchRecipes
+		);
+
+		// Affiche les recettes filtrées
+		displayRecipes(filteredRecipes);
+
+		// Met à jour le nombre total de recettes affichées
+		updateTotalRecipesCount(filteredRecipes.length);
+
+		// Si aucune recette ne correspond à la recherche, affiche un message d'erreur
+		if (filteredRecipes.length === 0) {
+			displayErrorAndSuggest(searchTerm);
+		} else {
+			clearError(); // Efface tout message d'erreur précédent
+		}
+	} else {
+		// Si le terme de recherche est trop court, affiche toutes les recettes filtrées par les éléments sélectionnés
+		const filteredRecipesItems = filterRecipesBySelectedItems();
+		displayRecipes(filteredRecipesItems);
+
+		// Met à jour le nombre total de recettes affichées
+		updateTotalRecipesCount(filteredRecipesItems.length);
+
+		// Efface tout message d'erreur précédent
+		clearError();
+	}
+} 
+ */
 // Filtrer les recettes en fonction des éléments sélectionnés
 function filterRecipesBySelectedItems(searchFilteredRecipes) {
 	// Vérifie si la liste de recettes filtrées est fournie, sinon utilise la liste de recettes complète.
