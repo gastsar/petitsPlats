@@ -66,7 +66,7 @@ function collectAllItems(recipesToDisplay) {
 	const allAppliances = [];
 	const allUstensils = [];
 
-	// Parcourt toutes les recettes à afficher
+	// Parcourt toutes les recettes afficher
 	recipesToDisplay.forEach((recipe) => {
 		// Collecte les ingrédients de chaque recette
 		recipe.ingredients.forEach((ingredient) => {
@@ -169,14 +169,14 @@ function toggleSelectedItem(event) {
 
 
 
-// Gère la saisie dans la barre de recherche principale
+// Gère la saisie dans la barre de recherche unique
 function handleSearchInputChange(searchType) {
 	return function (event) {
 		const searchTerm = event.target.value.toLowerCase();
 		const searchInput = document.getElementById(`${searchType}-search`);
 		const listItems = document.querySelectorAll(`#${searchType}-list .list-item`);
 		const buttonDelete = document.getElementById(`${searchType}-delete`);
-
+		//opérateur ternaire
 		buttonDelete.style.display = searchTerm ? "block" : "none";
 
 		listItems.forEach(item => {
@@ -211,15 +211,23 @@ function handleSearchButtonClick(searchType) {
 
 		// Vérifie si la valeur est composée uniquement de caractères alphanumériques
 		if (/^[a-zA-Z0-9\s]+$/.test(searchValue)) {
-			selectedItems[searchType].push(searchValue);
+			const selectedItemsOfType = selectedItems[searchType];
 
-			// Utilise la nouvelle fonction pour gérer le clic sur le bouton de suppression
-			handleDeleteSelectedItem(searchValue)();
+			// Vérifie si l'élément n'est pas déjà présent dans le tableau
+			if (!selectedItemsOfType.includes(searchValue)) {
+				selectedItemsOfType.push(searchValue);
 
-			searchRecipes(); // Appel de la fonction de recherche pour mettre à jour les recettes filtrées
-		} 
+				// Utilise la nouvelle fonction pour gérer le clic sur le bouton de suppression
+				handleDeleteSelectedItem(searchValue)();
+
+				searchRecipes(); // Appel de la fonction de recherche pour mettre à jour les recettes filtrées
+			} else {
+				// L'élément est déjà sélectionné, vous pouvez gérer cela comme vous le souhaitez (afficher un message d'erreur, ignorer l'ajout, etc.).
+			}
+		}
 	};
 }
+
 
 
 // Fonction qui gère le clic sur le bouton de suppression d'un élément sélectionné
@@ -246,8 +254,7 @@ function searchRecipes() {
 	const searchTerm = elements.searchInput.value.toLowerCase();
 
 	if (searchTerm.length >= 3) {
-    console.time('Filtrage des recettes');
-
+ 
 		const filteredBySearchRecipes = recipes.filter((recipe) => {
 			const nameMatch = recipe.name.toLowerCase().includes(searchTerm);
 			const descriptionMatch = recipe.description.toLowerCase().includes(searchTerm);
@@ -258,7 +265,7 @@ function searchRecipes() {
 
 			return nameMatch || descriptionMatch || ingredientMatch;
 		});
-    console.timeEnd('Filtrage des recettes');
+    
 		// Filtrer davantage les recettes en fonction des éléments sélectionnés 
 		const filteredRecipes = filterRecipesBySelectedItems(filteredBySearchRecipes);
 
@@ -414,7 +421,7 @@ function clearError() {
 // Affiche un message d'erreur et des suggestions
 function displayErrorAndSuggest(searchTerm) {
 	const suggestionContainer = document.createElement("div");
-	suggestionContainer.className= ("p-2 rounded d-flex position-absolute bottom-50 end-50 flex-column justify-content-center bg-info align-items-center"
+	suggestionContainer.className= ("p-2 rounded d-flex  flex-column justify-content-center bg-info align-items-center"
 	);
 
 	const suggestionsParagraph = document.createElement("p");

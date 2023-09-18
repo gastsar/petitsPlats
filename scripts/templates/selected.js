@@ -20,7 +20,7 @@ function createMenuContainer(title, idPrefix) {
 	dropdownBtn.appendChild(chevronDown);
   
 	const dropdownContent = document.createElement("div");
-	dropdownContent.classList.add("dropdown-content");
+	dropdownContent.className= "dropdown-content border border-2 border-top-0";
   
 	const listSearch = document.createElement("div");
 	listSearch.className ="list_search p-2 d-flex position-relative align-items-center justify-content-end";
@@ -63,7 +63,7 @@ function createMenuContainer(title, idPrefix) {
     
   
 	const list = document.createElement("div");
-	list.classList.add(`${idPrefix}-list`, "liste-element");
+	list.classList.add(`${idPrefix}-list`, "liste-element","list-group-item");
 	list.setAttribute("role","list");
 	list.setAttribute("aria-live","polite");
 	list.setAttribute("aria-label",`Liste des ${title}`);
@@ -71,7 +71,7 @@ function createMenuContainer(title, idPrefix) {
 	errorMsg.classList.add("no-results");
 	const ul = document.createElement("ul");
 	ul.id = `${idPrefix}-list`;
-	list.classList.add("list-group-item");
+
 	list.appendChild(ul);
 	list.appendChild(errorMsg);
 	dropdownContent.appendChild(listSearch);

@@ -82,7 +82,7 @@ color: var(--colorBlack--) !important;
 .liste-element ul{
   max-height: 16em;
   overflow: scroll;
-
+  overflow-x: hidden;
 
 }
 
@@ -183,22 +183,11 @@ border-radius: 10px;
 .tag i{
   margin-left: 10px;
 }
-
-@keyframes loading {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.container-list {
+  width: 85%;
+  margin: auto;
 }
-
-.loading-spinner {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 4px solid rgba(0, 0, 0, 0.3);
-  border-top: 4px solid #007bff;
-  border-radius: 50%;
-  animation: loading 1s linear infinite;
+.display-containte{
+  width: 85%;
+min-height: 54vh;
 }
