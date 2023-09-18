@@ -248,44 +248,8 @@ function handleDeleteSelectedItem(item) {
 	};
 }
 
-// Fonction de recherche de recettes
+
 function searchRecipes() {
-	// Récupère le terme de recherche saisi par l'utilisateur et le convertit en minuscules
-	const searchTerm = elements.searchInput.value.toLowerCase();
-
-	if (searchTerm.length >= 3) {
-		console.time("Filtrage des recettes");
-		const filteredBySearchRecipes = recipes.filter((recipe) => {
-			const nameMatch = recipe.name.toLowerCase().includes(searchTerm);
-			const descriptionMatch = recipe.description.toLowerCase().includes(searchTerm);
-			const ingredientMatch = recipe.ingredients.some(
-				(ingredient) =>
-					ingredient.ingredient.toLowerCase().includes(searchTerm)
-			);
-
-			return nameMatch || descriptionMatch || ingredientMatch;
-		});
-    
-		// Filtrer davantage les recettes en fonction des éléments sélectionnés 
-		const filteredRecipes = filterRecipesBySelectedItems(filteredBySearchRecipes);
-
-		// Affiche les recettes filtrées
-		displayRecipes(filteredRecipes);
-		console.timeEnd("Filtrage des recettes");
-		if (filteredRecipes.length === 0) {
-			displayErrorAndSuggest(searchTerm);
-		} else {
-			clearError();
-		}
-	} else {
-		const filteredRecipes = filterRecipesBySelectedItems();
-		displayRecipes(filteredRecipes);
-		updateTotalRecipesCount(filteredRecipes.length);
-		clearError();
-	}
-} 
-
-/* function searchRecipes() {
 	// Récupère le terme de recherche saisi par l'utilisateur et le convertit en minuscules
 	const searchTerm = elements.searchInput.value.toLowerCase();
 
@@ -354,7 +318,7 @@ function searchRecipes() {
 		clearError();
 	}
 } 
- */
+ 
 // Filtrer les recettes en fonction des éléments sélectionnés
 function filterRecipesBySelectedItems(searchFilteredRecipes) {
 	// Vérifie si la liste de recettes filtrées est fournie, sinon utilise la liste de recettes complète.
